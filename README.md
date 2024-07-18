@@ -18,6 +18,10 @@ GET http://localhost:5000/
 Теперь функция с логикой запроса перемещена из userRouter.js в отдельный файл userController.js. Если перейти по прежнему URL  http://localhost:5000/api/user/auth , увидим сообщение из функции check в файле userController.js.
 
 ## Version 4
-Добавили в userController.js возможность получения параметров из ссылки запроса. См комментарии в файле. 
+Добавлена в userController.js возможность получения параметров из ссылки запроса. См комментарии в файле. 
 Использование:  http://localhost:5000/api/user/auth?id=5&text=bbbbbb  , параметры id и text (text можно заменить на другое имя переменной) можно изменять.
 
+## Version 5
+Добавлен обработчик ошибок. Ошибку  `if (!id) {return next(ApiError.badRequest('Не задан ID'))}`  можно получить так:  
+http://localhost:5000/api/user/auth - высветится {"message":"Не задан ID"}. В коде веб-страницы можно увидеть ошибку 404 (Not Found).
+http://localhost:5000/api/user/auth?id=5 - ошибки не будет. Отобразится только id.
