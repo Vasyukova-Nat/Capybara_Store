@@ -25,3 +25,8 @@ GET http://localhost:5000/
 Добавлен обработчик ошибок. Ошибку  `if (!id) {return next(ApiError.badRequest('Не задан ID'))}`  можно получить так:  
 http://localhost:5000/api/user/auth - высветится {"message":"Не задан ID"}. В коде веб-страницы можно увидеть ошибку 404 (Not Found).
 http://localhost:5000/api/user/auth?id=5 - ошибки не будет. Отобразится только id.
+
+## Version 6
+Добавлено 2 запроса к типу устройства. Использование через Postman:
+1. GET http://localhost:5000/api/type - посмотреть все существующие типы устройств
+2. POST http://localhost:5000/api/type , body - {"name": "Ноутбуки"} - добавить тип устройства (не должны повторяться)
