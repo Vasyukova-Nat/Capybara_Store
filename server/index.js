@@ -4,6 +4,7 @@ const sequelize = require('./db')
 const models = require('./models/models')  // импорт всех моделей типов данных в БД
 const cors = require('cors')  // импорт пакета Cors 
 const router = require('./routes/index')  // импорт главного роутера index
+const errorHandler = require('./middleware/ErrorHandlingMiddleware')
 
 const PORT = process.env.PORT || 5000  //считывается из файла .env, но в случае если он пустой - по умолчанию 5000
 
@@ -17,6 +18,8 @@ app.use(express.json())  // чтобы приложение могло парс�
 // })
 
 app.use('/api', router)
+
+app.use(errorHandler)  // Обработка ошибок, последний Middleware в цепи
 
 const start = async () => {
     try {

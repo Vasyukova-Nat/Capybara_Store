@@ -1,5 +1,7 @@
 // Функции лучше прописывать не в роутере, а в отдельной папке controllers.
 
+const ApiError = require('../error/ApiError');
+
 class UserController {
     async registration(req, res) {
         
@@ -9,16 +11,23 @@ class UserController {
         
     }
 
-    async check(req, res) {
+    async check(req, res, next) {
         // Version 3
         // res.json('aaaaaaaaa')  // вызываем функцию json у response
 
         // Version 4
-        const query = req.query  // из строки запроса получаем её параметры
-        res.json(query)
+        // const query = req.query  // из строки запроса получаем её параметры
+        // res.json(query)
         // либо можем сразу вытащить из параметров только id:
         // const {id} = req.query  
         // res.json(id)
+
+        // Version 5
+        const {id} = req.query
+        if (!id) {
+            return next(ApiError.badRequest('Не задан ID'))
+        }
+        res.json(id)
     }
 }
 
