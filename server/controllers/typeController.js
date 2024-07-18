@@ -4,7 +4,7 @@ const ApiError = require('../error/ApiError');  // импорт обработч
 class TypeController {
     async create(req, res) {
         const {name} = req.body  // делаем деструктуризацию. Из тела запроса извлекаем название данного типа
-        const type = await Type.create({name})  // создаём данный тип. Функция асинхронная, поэтому добавляем await.
+        const type = await Type.create({name})  // создаём данный тип. Функция асинхронная (т.к. любые запросы к БД - асинхронные), поэтому добавляем await.
         return res.json(type)
     }
 
@@ -12,7 +12,6 @@ class TypeController {
         const types = await Type.findAll()
         return res.json(types)  // возвращаем весь массив объектов
     }
-
 }
 
 module.exports = new TypeController()
