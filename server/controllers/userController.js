@@ -1,10 +1,31 @@
 // Функции лучше прописывать не в роутере, а в отдельной папке controllers.
 
 const ApiError = require('../error/ApiError');
+const bcrypt = require('bcrypt')  // импорт модуля для хэширования паролей
+const jwt = require('jsonwebtoken')  // импорт модуля для создания jwt-токенов
+const {User, Basket} = require('../models/models')
 
 class UserController {
-    async registration(req, res) {
-        
+    async registration(req, res, next) {
+        const {email, password, role} = req.body
+        if (!email || !password) {  // если email или пароль путые, будем выводить ошибку
+            return next(ApiError.badRequest('Некорректный email или password'))
+        }
+
+        const candidate = await User.findOne({where: {email}})  //проверим есть ли уже такой email в системе
+        if (candidate) {
+            return next(ApiError.badRequest('Пользователь с таким email уже существует'))
+        }
+        const hashPassword = await bcrypt.hash(password, 5)  // 5 - сколько раз будет проводиться хэширование
+        const user = await User.create({email, role, password: hashPassword})
+        const basket = await Basket.create({userId: user.id})
+
+        const token = jwt.sign(
+            {id: user.id, email, role},
+            process.env.SECRET_KEY,
+            {expiresIn: '24h'}  // время действительности токена - 24 часа
+        )
+        return res.json({token})
     }
 
     async login(req, res) {
