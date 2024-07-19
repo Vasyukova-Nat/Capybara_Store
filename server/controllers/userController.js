@@ -5,6 +5,14 @@ const bcrypt = require('bcrypt')  // импорт модуля для хэшир
 const jwt = require('jsonwebtoken')  // импорт модуля для создания jwt-токенов
 const {User, Basket} = require('../models/models')
 
+const generateJwt = (id, email, role) => {
+    return jwt.sign(
+        {id, email, role},
+        process.env.SECRET_KEY,
+        {expiresIn: '24h'}  // время действительности токена - 24 часа
+        )
+}
+
 class UserController {
     async registration(req, res, next) {
         const {email, password, role} = req.body
@@ -19,12 +27,7 @@ class UserController {
         const hashPassword = await bcrypt.hash(password, 5)  // 5 - сколько раз будет проводиться хэширование
         const user = await User.create({email, role, password: hashPassword})
         const basket = await Basket.create({userId: user.id})
-
-        const token = jwt.sign(
-            {id: user.id, email, role},
-            process.env.SECRET_KEY,
-            {expiresIn: '24h'}  // время действительности токена - 24 часа
-        )
+        const token = generateJwt(user.id, user.email, user.role)
         return res.json({token})
     }
 
