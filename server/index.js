@@ -5,6 +5,8 @@ const models = require('./models/models')  // импорт всех моделе
 const cors = require('cors')  // импорт пакета Cors 
 const router = require('./routes/index')  // импорт главного роутера index
 const errorHandler = require('./middleware/ErrorHandlingMiddleware')
+const fileUpload = require('express-fileupload')  // импорт пакета для работы с изображениями в deviceController.js
+const path = require('path')
 
 const PORT = process.env.PORT || 5000  //считывается из файла .env, но в случае если он пустой - по умолчанию 5000
 
@@ -17,6 +19,8 @@ app.use(express.json())  // чтобы приложение могло парс�
 //     res.status(200).json({message: 'Working!'})
 // })
 
+app.use(express.static(path.resolve(__dirname, 'static')))  // чтобы GET-запросы без проблем могли вывести фото из папки static
+app.use(fileUpload({}))
 app.use('/api', router)
 
 app.use(errorHandler)  // Обработка ошибок, последний Middleware в цепи
