@@ -20,6 +20,21 @@ class DeviceController {
     }
 
     async getAll (req, res) {
+        const {brandId, typeId} = req.query  // Если оба не указаны то возвращаем все девайсы, если хотя бы один указан - будет фильтрация. query - строка запроса. 
+        let devices;
+        if (!brandId && !typeId) {  // Если нет обоих
+            devices = await Device.findAll()  // Запрос к БД. Функция асинхронная.
+        }
+        if (brandId && !typeId) {  // Если есть бренд, но нет типа
+            devices = await Device.findAll({where:{brandId}})
+        }
+        if (!brandId && typeId) {
+            devices = await Device.findAll({where:{typeId}})
+        }
+        if (brandId && typeId) {  // Если оба указаны
+            devices = await Device.findAll({where:{typeId, brandId}})
+        }
+        return res.json(devices)
         
     }
 
