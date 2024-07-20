@@ -56,4 +56,8 @@ POST http://localhost:5000/api/user/registration , body: {"email": "user@mail.ru
 GET http://localhost:5000/api/user/auth , Headers: Key = Authorization, Value = Bearer eyJhbGciOi... (скопированный токен)
 <img width="859" alt="image" src="https://github.com/user-attachments/assets/0c13cb04-c747-48c5-9507-4721cc9ad905">
 
+## Version 9
+Теперь чтобы создать бренд, нужно иметь роль ADMIN. Проверим, попробовав создать:  
+POST http://localhost:5000/api/type . Если в Headers не указали Authorization и токен, то выведется сообщение "Не авторизован". Если же токен есть, но в нем при регистрации не было роли администратора, выведется "нет доступа".  
+Зарегистрируем админа: POST http://localhost:5000/api/user/registration , body: {"email": "admin@mail.ru", "password": "12345", "role": "ADMIN"}. Теперь если мы создадим бренд через POST http://localhost:5000/api/type , указав Headers и Body, он успешно добавится.
 
