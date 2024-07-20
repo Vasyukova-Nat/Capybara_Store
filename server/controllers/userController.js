@@ -64,7 +64,10 @@ class UserController {
         // res.json(id)
 
         // Version 8
-        res.json({message: 'All right!'})
+        //res.json({message: 'All right!'})
+        // Функция check будет генерировать новый токен и отправлять его на клиент.
+        const token = generateJwt(req.user.id, req.user.email, req.user.role)
+        return res.json({token})
     }
 }
 
