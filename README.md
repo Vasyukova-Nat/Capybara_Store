@@ -48,5 +48,5 @@ POST http://localhost:5000/api/user/registration , body: {"email": "user@mail.ru
 
 Вызов функции логина:  
 Существующий пользователь: POST http://localhost:5000/api/user/login , body: {"email": "user@mail.ru", "password": "12345"} - успешно (Status 200 OK), будет выдан jwt-токен.  
-Несуществующий пользователь: POST http://localhost:5000/api/user/login , body: {"email": "user333@mail.ru", "password": "12345"} - Status 500, покажется сообщение {"message": "Пользователь не найден"}
+Несуществующий пользователь: POST http://localhost:5000/api/user/login , body: {"email": "user333@mail.ru", "password": "12345"} - Status 500, покажется сообщение {"message": "Пользователь не найден"}. Если ввести неправильный пароль, также будет ошибка.
 
