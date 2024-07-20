@@ -57,11 +57,14 @@ class UserController {
         // res.json(id)
 
         // Version 5
-        const {id} = req.query
-        if (!id) {
-            return next(ApiError.badRequest('Не задан ID'))
-        }
-        res.json(id)
+        // const {id} = req.query
+        // if (!id) {
+        //     return next(ApiError.badRequest('Не задан ID'))
+        // }
+        // res.json(id)
+
+        // Version 8
+        res.json({message: 'All right!'})
     }
 }
 
