@@ -50,3 +50,10 @@ POST http://localhost:5000/api/user/registration , body: {"email": "user@mail.ru
 Существующий пользователь: POST http://localhost:5000/api/user/login , body: {"email": "user@mail.ru", "password": "12345"} - успешно (Status 200 OK), будет выдан jwt-токен.  
 Несуществующий пользователь: POST http://localhost:5000/api/user/login , body: {"email": "user333@mail.ru", "password": "12345"} - Status 500, покажется сообщение {"message": "Пользователь не найден"}. Если ввести неправильный пароль, также будет ошибка.
 
+Вызов функции проверки авторизации check:  
+Если отправить запрос без jwt-Токена - GET http://localhost:5000/api/user/auth , no body - выведется {"message": "Не авторизован"}.
+Чтобы получить токен, отправляем: POST http://localhost:5000/api/user/login , body: {"email": "user@mail.ru", "password": "12345"}. Копируем токен который пришёл в поле вывода и вставляем его после типа токена (Bearer) во вкладке Headers:  
+GET http://localhost:5000/api/user/auth , Headers: Key = Authorization, Value = Bearer eyJhbGciOi... (скопированный токен)
+<img width="859" alt="image" src="https://github.com/user-attachments/assets/0c13cb04-c747-48c5-9507-4721cc9ad905">
+
+
