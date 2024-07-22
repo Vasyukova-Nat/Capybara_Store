@@ -1,11 +1,14 @@
 import {Routes, Route, Navigate} from 'react-router-dom';  // в новой версии Switch был заменен на Routes, а Redirect был удален (его можно заменить на Navigate).
 import {authRoutes, publicRoutes} from "../routes.jsx";
+import { useContext } from 'react';
+import {Context} from "../index";
 
 const AppRouter = () => {
-    const isAuth = true  // временная переменная-флаг, авторизован ли пользователь
+    const {user} = useContext(Context)
+    console.log(user) // или console.log(user.isAuth)
     return (
         <Routes>
-            {isAuth && authRoutes.map(({path, Component}) =>
+            {user.isAuth && authRoutes.map(({path, Component}) =>
                 <Route key={path} path={path} element={<Component/>} exact/>
             )}
             {publicRoutes.map(({path, Component}) =>
