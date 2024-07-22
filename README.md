@@ -61,3 +61,7 @@ GET http://localhost:5000/api/user/auth , Headers: Key = Authorization, Value = 
 POST http://localhost:5000/api/type . Если в Headers не указали Authorization и токен, то выведется сообщение "Не авторизован". Если же токен есть, но в нем при регистрации не было роли администратора, выведется "нет доступа".  
 Зарегистрируем админа: POST http://localhost:5000/api/user/registration , body: {"email": "admin@mail.ru", "password": "12345", "role": "ADMIN"}. Теперь если мы создадим бренд через POST http://localhost:5000/api/type , указав Headers и Body, он успешно добавится.
 
+---
+
+## Version 2.1
+Добавлена маршрутизация. Маршруты сайта разделены на общедоступные и только для авторизованных пользователей. Есть временная переменная isAuth, которая обозначает, авторизован ли пользователь. Действующие файлы - App.js, index.js, AppRouter.js, routes.js, consts.js.
