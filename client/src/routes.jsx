@@ -1,9 +1,9 @@
-import {ADMIN_ROUTE, BASKET_ROUTE, DEVICE_ROUTE, LOGIN_ROUTE, REGISTRATION_ROUTE, SHOP_ROUTE} from "./utils/consts";
-import Admin from "./pages/Admin";
-import Basket from "./pages/Basket";
-import Shop from "./pages/Shop.js";
-import Auth from "./pages/Auth";
-import DevicePage from "./pages/DevicePage";
+import {ADMIN_ROUTE, BASKET_ROUTE, DEVICE_ROUTE, LOGIN_ROUTE, REGISTRATION_ROUTE, SHOP_ROUTE} from "./utils/consts.jsx";
+import Admin from "./pages/Admin.jsx";
+import Basket from "./pages/Basket.jsx";
+import Shop from "./pages/Shop.jsx";
+import Auth from "./pages/Auth.jsx";
+import DevicePage from "./pages/DevicePage.jsx";
 
 export const authRoutes = [  // маршруты только для авторизованных пользователей
     {
